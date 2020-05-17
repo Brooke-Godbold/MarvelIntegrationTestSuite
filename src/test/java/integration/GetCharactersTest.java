@@ -6,9 +6,9 @@ import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
-import utils.RestUtils;
 import utils.ApiUtils;
 import utils.AssertUtils;
+import utils.RestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
