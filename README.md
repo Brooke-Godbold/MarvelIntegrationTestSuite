@@ -1,4 +1,4 @@
-# Coding Challenge - Marvel API - v1
+# Marvel API - v1
 
 ## Environment Setup
 
@@ -23,19 +23,3 @@ Once done, the tests can be run simply via the following command from the Projec
 ```bash
 mvn test
 ```
-
-## Looking Forward
-
-Two areas of the Tests need further work. For the second Test (checking that the UI and Back-End match), the Test does not currently pass. This appears due to an as-yet unknown issue in chromedriver, where the 'Variants' Checkbox which the User needs to press doesn't get rendered in chromedriver, but it does get rendered in regular usage.
-
-The other area is Pagination of the Rest Response. The GET call only returns 20 results at a time, which means that the Test is not actually verifying every single result. I have attempted to get around this by implementing solutions suggested online, but the common suggestion of capturing the result as a ResponseEntity of Type PagedResource seems to result in No Content being received; this seems to be due to the Object Mapping not working, as I am attempting to map it to a basic Json Object, but without having access to the Engineers who implemented it, I can't know what Object Type I should be mapping it to (or if that Object Type would even available externally).
-
-Both of these areas have a 'TODO' comment above them (in GetCharacterComicsTest and RestUtils respectively)
-
-## Candidate Comments
-
-Whilst these Tests are very valid, and lack of ownership of the System under Test limits how it can be Tested, in a real world scenario I would approach this differently.
-
-For the first Scenario, it is concerned with checking that the Result for a Character always has some expected fields. Because I do not own the System, this has been done via a simple functional test via the API, and checking every single result. This is extremely costly though, with potentially thousands of results to test. The better solution would be a Contract Test, specifying that these fields need to be returned for every call.
-
-For the second scenario, this is conflating Front-End and Back-End Testing together. I would split this out into two different Test Suites. In the Back-End Test Suite, I would check that given the Back-End has a certain number of Comics for that ID, then a GET call to that ID returns the expected number of Comics. And in the Front-End Suite, I would configure a Mocked Back-End to return a number of Comics, and assert that the Front-End renders the correct Number of Comics.
